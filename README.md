@@ -1,2 +1,2 @@
-# GenerativeAILLMVectorDBRAG
-Generative AI Architectures with LLM, Prompt, RAG, Vector DB
+# Generative AI Architectures with LLM, Prompt, RAG, Vector DB
+
