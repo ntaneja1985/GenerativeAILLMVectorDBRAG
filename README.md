@@ -150,4 +150,385 @@
 ## Exploring and Running LLMs
 - ![alt text](image-76.png)
 - ![alt text](image-78.png)
-- 
+- ![alt text](image-79.png)
+- ![alt text](image-80.png)
+- ![alt text](image-81.png)
+- ![alt text](image-82.png)
+- ![alt text](image-83.png)
+- ![alt text](image-84.png)
+- ![alt text](image-85.png)
+- ![alt text](image-86.png)
+- ![alt text](image-87.png)
+- ![alt text](image-88.png)
+```python
+from openai import OpenAI
+client = OpenAI()
+
+completion = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[
+        {
+            "role": "user",
+            "content": "Write a one-sentence bedtime story about a unicorn."
+        }
+    ]
+)
+
+print(completion.choices[0].message.content)
+
+```
+- Response is as follows:
+```json
+[
+    {
+        "index": 0,
+        "message": {
+            "role": "assistant",
+            "content": "Under the soft glow of the moon, Luna the unicorn danced through fields of twinkling stardust, leaving trails of dreams for every child asleep.",
+            "refusal": null
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+    }
+]
+
+
+```
+- In addition to plain text, you can also have the model return structured data in JSON format - this feature is called Structured Outputs.
+- You can provide instructions (prompts) to the model with differing levels of authority using message roles.
+```python
+ from openai import OpenAI
+client = OpenAI()
+
+completion = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[
+        {
+            "role": "developer",
+            "content": "Talk like a pirate."
+        },
+        {
+            "role": "user",
+            "content": "Are semicolons optional in JavaScript?"
+        }
+    ]
+)
+
+print(completion.choices[0].message.content)
+
+
+```
+- In .NET we can do it like this:
+- We need to add a nuget package: dotnet add openai
+```c#
+using OpenAI.Chat;
+
+ChatClient client = new(
+  model: "gpt-4o", 
+  apiKey: Environment.GetEnvironmentVariable("OPENAI_API_KEY")
+);
+
+ChatCompletion completion = client.CompleteChat("Say 'this is a test.'");
+
+Console.WriteLine($"[ASSISTANT]: {completion.Content[0].Text}");
+
+
+```
+- If we want the response to be streamed i.e appear as it is being generated we can using OpenAI's CompleteChatStreamingAsync method:
+```c#
+using OpenAI.Chat;
+
+ChatClient client = new(
+  model: "gpt-4o-mini",
+  apiKey: Environment.GetEnvironmentVariable("OPENAI_API_KEY")
+);
+
+string prompt = "Why is the sky blue?";
+
+await foreach(var message in client.CompleteChatStreamingAsync(prompt))
+{
+    foreach(var item in message.ContentUpdate)
+    {
+        Console.Write(item.Text);
+    }
+}
+
+
+```
+- ![alt text](image-89.png)
+- ![alt text](image-90.png)
+- ![alt text](image-91.png)
+- ![alt text](image-92.png)
+- ![alt text](image-93.png)
+
+### Interacting with Ollama Models using Code
+- ![alt text](image-94.png)
+- ![alt text](image-96.png)
+- We need to install the following packages
+```json
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SemanticKernel" Version="1.44.0" />
+    <PackageReference Include="Microsoft.SemanticKernel.Connectors.Ollama" Version="1.44.0-alpha" />
+  </ItemGroup>
+
+```
+- Here is the program: 
+```c#
+using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.ChatCompletion;
+
+var builder = Kernel.CreateBuilder();
+builder.AddOllamaChatCompletion("llama3.2:latest", new Uri("http://localhost:11434"));
+
+var kernel = builder.Build();
+var chatService = kernel.GetRequiredService<IChatCompletionService>();
+
+var history = new ChatHistory();
+history.AddSystemMessage("You are a helpful assistant");
+
+while(true)
+{
+    Console.Write("You: ");
+    var userMessage = Console.ReadLine();
+
+    if(string.IsNullOrEmpty(userMessage))
+    {
+        break;
+    }
+
+    history.AddUserMessage(userMessage);
+
+    var response = await chatService.GetChatMessageContentAsync(history);
+
+    Console.WriteLine($"Bot: {response.Content}");
+
+    history.AddMessage(response.Role, response.Content ?? string.Empty);
+}
+
+
+```
+### Modernizing Modern Apps with AI-Powered LLM Capabilities
+- ![alt text](image-97.png)
+- ![alt text](image-98.png)
+- ![alt text](image-99.png)
+- ![alt text](image-100.png)
+- ![alt text](image-101.png)
+- ![alt text](image-102.png)
+- ![alt text](image-103.png)
+
+### LLM Augmentation Flow
+- ![alt text](image-105.png)
+- ![alt text](image-106.png)
+- ![alt text](image-107.png)
+- ![alt text](image-108.png)
+- ![alt text](image-109.png)
+- ![alt text](image-111.png)
+- ![alt text](image-112.png)
+
+## Prompt Engineering
+- ![alt text](image-113.png)
+- ![alt text](image-114.png)
+- ![alt text](image-115.png)
+- ![alt text](image-116.png)
+- ![alt text](image-117.png)
+- ![alt text](image-118.png)
+- ![alt text](image-119.png)
+- ![alt text](image-120.png)
+- ![alt text](image-121.png)
+- ![alt text](image-122.png)
+- ![alt text](image-123.png)
+- ![alt text](image-124.png)
+- ![alt text](image-125.png)
+- Better prompts get more accurate and relevant responses and allow us to shape the model's behavior
+- Better prompts reduce vague or incorrect outputs by clarifying our instructions.
+- Types of prompts: Zero Shot, Few shot and One-Shot
+- ![alt text](image-126.png)
+
+### Steps of Designing Effective Prompts
+- ![alt text](image-127.png)
+- ![alt text](image-128.png)
+- ![alt text](image-129.png)
+- ![alt text](image-130.png)
+- ![alt text](image-131.png)
+- ![alt text](image-132.png)
+- ![alt text](image-133.png)
+- ![alt text](image-134.png)
+- ![alt text](image-135.png)
+- Zero Shot prompting works well for general topics, but not for complex reasoning or specific data.
+- ![alt text](image-136.png)
+- ![alt text](image-137.png)
+- ![alt text](image-138.png)
+- ![alt text](image-139.png)
+- ![alt text](image-140.png)
+- ![alt text](image-141.png)
+- ![alt text](image-142.png)
+- ![alt text](image-143.png)
+- ![alt text](image-144.png)
+- ![alt text](image-145.png)
+- ![alt text](image-146.png)
+- Example of contextual prompting
+- ![alt text](image-147.png)
+
+### Design Advanced Prompts for EShop Support- Classification, Sentiment Analysis
+- ![alt text](image-148.png)
+- ![alt text](image-149.png)
+- We can design an advanced prompt like this:
+- You are an AI assistant integrated into an EShop support system. 
+Your task is to help support agents by summarizing customer support interactions, classifying the ticket type, and evaluating customer sentiment based on the messages exchanged.
+
+Here are the details of a customer support ticket:
+
+- Product: {{product.Model}}
+- Brand: {{product.Brand}}
+- Ticket Messages: {{ticket.Messages}}
+
+Please perform the following tasks:
+
+1. **Summarization**: Write a detailed summary (up to 30 words) that includes:
+    - The current status of the ticket.
+    - Any specific questions asked by the customer.
+    - What type of response would be most useful from the next support agent.
+    - Avoid repeating the product or customer name unless necessary.
+
+2. **Ticket Classification**: Based on the message log, classify the ticket into one of the following categories:
+    - Question, Complaint, Feedback, Request for Refund, Product Issue, Other.
+    - If the ticket contains multiple categories, choose the most dominant one.
+
+3. **Customer Sentiment Analysis**: Analyze the latest message from the customer and determine their satisfaction level. Focus on the emotional tone of the customer, especially in how they express their needs or frustrations. Provide the satisfaction level using one of the following options: 
+    - Very Dissatisfied, Dissatisfied, Neutral, Satisfied, Very Satisfied.
+
+Return the output in this structured format (as JSON):
+{
+  "LongSummary": "string",
+  "TicketClassification": "string",
+  "CustomerSatisfaction": "string"
+}
+
+- ![alt text](image-150.png)
+#### Prompts on Ticket Detail page can be designed as follows:
+- Prompt: Q&A chat on the Ticket Detail Page with Retrieval-Augmented Generation and Citations
+
+You are an AI assistant named 'Assistant' responsible for helping customer service agents handle support tickets for EShop specializing in electronics and computers.
+
+The agent is currently handling the following ticket:
+
+- Product: {{ProductId}}
+- Customer: {{CustomerName}}
+- Ticket summary: {{TicketSummary}}
+- Customer's latest message: {{TicketLastCustomerMessage}}
+
+You will be asked a question related to this ticket. When answering product-related questions, Always search the product manual or relevant documentation to ensure accuracy. 
+
+**Citations** are critical in every response. After answering, provide a short, **verbatim** quote from the source to support your reply, using the following format:
+- <cite source="manual/document_name">"Exact quote here" (max 10 words)</cite>.
+
+Only include **one citation** per response, and ensure it is directly relevant to the question asked. Your responses should be clear, concise, and professional.
+
+
+>>>>
+Prompt 2: Q&A Chat Response Text Generator for Customer Communication on the Ticket Detail Page
+
+You are an AI assistant helping a customer support team at EShop, and your task is to draft responses that agents can use to communicate with customers. Based on the customer’s latest message and overall sentiment, generate a suggested response that addresses the customer’s issue, provides helpful guidance, and maintains a friendly tone.
+
+Here are the details:
+
+- **Product**: {{product.Model}}
+- **Ticket Summary**: {{request.TicketSummary}}
+- **Customer's Latest Message**: {{request.TicketLastCustomerMessage}}
+
+Analyze the sentiment of the customer's latest message and adjust the tone of the response accordingly:
+- If the customer appears **frustrated**, include a sympathetic tone and offer reassurance.
+- If the customer is **satisfied**, reinforce the positive experience and offer further assistance if needed.
+
+Generate a response that meets the following guidelines:
+- Address the customer's specific question or issue.
+- Provide clear and concise instructions or solutions.
+- Offer a friendly closing statement, inviting the customer to reach out if they need further help.
+
+Return the response in this format:
+{
+  "Response": "string"
+}
+
+
+>>>>>
+TEST TICKET DETAIL
+>>
+Prompt1: Q&A chat on the Ticket Detail Page with Retrieval-Augmented Generation and Citations
+User Message: (show json viewer)
+{
+  "product": {
+    "Model": "UltraView 4K Pro",
+    "Brand": "VisionMax"
+  },
+  "request": {
+    "TicketLastCustomerMessage": "Can you guide me on how to adjust the color settings for my UltraView 4K Pro? The colors seem off when I switch to HDMI mode."
+  }
+}
+
+>>
+Prompt 2: Q&A Chat Response Text Generator for Customer Communication on the Ticket Detail Page
+User Message: (show json viewer) -- Customer Ticket 4: Customer Request for Return Policy
+{
+  "product": {
+    "Model": "AirPro Max Blender",
+    "Brand": "KitchenMaster"
+  },
+  "request": {
+    "TicketSummary": "Customer inquiring about the return policy for a recently purchased blender.",
+    "TicketLastCustomerMessage": "I bought the AirPro Max Blender two weeks ago, and it’s already malfunctioning. It overheats after just 30 seconds of use. Can I return it for a full refund?"
+  }
+}
+- Provide the system instructions 
+- ![alt text](image-151.png)
+- ![alt text](image-152.png)
+- ![alt text](image-153.png)
+- ![alt text](image-154.png)
+- ![alt text](image-155.png)
+- ![alt text](image-156.png)
+
+
+## Retrieval Augmented Generation(RAG)
+- ![alt text](image-157.png)
+- ![alt text](image-158.png)
+- ![alt text](image-159.png)
+- ![alt text](image-160.png)
+- ![alt text](image-161.png)
+- ![alt text](image-162.png)
+- ![alt text](image-163.png)
+- ![alt text](image-164.png)
+- ![alt text](image-165.png)
+- ![alt text](image-166.png)
+- ![alt text](image-167.png)
+- ![alt text](image-168.png)
+
+### Ingestion with Embeddings and Vector Search
+- ![alt text](image-170.png)
+- ![alt text](image-171.png)
+- ![alt text](image-172.png)
+- ![alt text](image-173.png)
+### Retrieval with ReRanking and Context Query Prompts
+- ![alt text](image-174.png)
+- ![alt text](image-175.png)
+- ![alt text](image-176.png)
+- ![alt text](image-177.png)
+- ![alt text](image-178.png)
+### Generation with Generator and Output 
+- ![alt text](image-179.png)
+- ![alt text](image-180.png)
+- ![alt text](image-181.png)
+
+### E2E Workflow of RAG
+- ![alt text](image-182.png)
+- ![alt text](image-183.png)
+- ![alt text](image-184.png)
+- ![alt text](image-185.png)
+- ![alt text](image-187.png)
+- ![alt text](image-188.png)
+
+### Application Use Cases of RAG
+- ![alt text](image-189.png)
+- ![alt text](image-190.png)
+- ![alt text](image-191.png)
+- ![alt text](image-192.png)
+

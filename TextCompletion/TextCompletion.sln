@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextCompletion", "TextCompletion.csproj", "{E92FA2DF-C428-45A6-ADA5-C0081119ECC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OllamaIntegrationSemanticKernel", "..\OllamaIntegrationSemanticKernel\OllamaIntegrationSemanticKernel.csproj", "{925DDEE5-87CF-4C6B-844A-AAD88D299AEB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E92FA2DF-C428-45A6-ADA5-C0081119ECC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E92FA2DF-C428-45A6-ADA5-C0081119ECC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E92FA2DF-C428-45A6-ADA5-C0081119ECC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E92FA2DF-C428-45A6-ADA5-C0081119ECC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{925DDEE5-87CF-4C6B-844A-AAD88D299AEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{925DDEE5-87CF-4C6B-844A-AAD88D299AEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{925DDEE5-87CF-4C6B-844A-AAD88D299AEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{925DDEE5-87CF-4C6B-844A-AAD88D299AEB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6E19925C-285A-40D5-965C-54ABC9AAE401}
+	EndGlobalSection
+EndGlobal
