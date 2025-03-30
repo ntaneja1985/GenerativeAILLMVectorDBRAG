@@ -848,4 +848,6 @@ effectively.
 - Azure OpenAI brings large language models to the enterprise with enterprise grade security scalability and performance.
 - ![alt text](image-330.png)
 - ![alt text](image-332.png)
-- 
+- ![alt text](image-333.png)
+- ![alt text](image-335.png)
+- ![alt text](image-336.png)
