@@ -532,3 +532,320 @@ User Message: (show json viewer) -- Customer Ticket 4: Customer Request for Retu
 - ![alt text](image-191.png)
 - ![alt text](image-192.png)
 
+### Challenges and Key considerations of using RAG
+- ![alt text](image-193.png)
+- ![alt text](image-194.png)
+- ![alt text](image-195.png)
+- ![alt text](image-196.png)
+  
+### Design EShop Customer Support using RAG
+- ![alt text](image-197.png)
+- ![alt text](image-198.png)
+- ![alt text](image-199.png)
+- ![alt text](image-200.png)
+- ![alt text](image-201.png)
+
+## Fine Tuning LLMs
+- ![alt text](image-202.png)
+- ![alt text](image-203.png)
+- ![alt text](image-204.png)
+- ![alt text](image-205.png)
+
+### Why we need Fine Tuning
+- ![alt text](image-206.png)
+- ![alt text](image-207.png)
+- ![alt text](image-208.png)
+- ![alt text](image-209.png)
+
+### When to use Fine Tuning
+- ![alt text](image-210.png)
+- ![alt text](image-211.png)
+- ![alt text](image-212.png)
+
+### How does Fine Tuning Work
+- ![alt text](image-213.png)
+- ![alt text](image-214.png)
+- ![alt text](image-215.png)
+- ![alt text](image-216.png)
+- ![alt text](image-217.png)
+- ![alt text](image-218.png)
+- ![alt text](image-219.png)
+- ![alt text](image-220.png)
+- ![alt text](image-221.png)
+
+### Fine Tuning Methods
+- ![alt text](image-222.png)
+- ![alt text](image-223.png)
+- ![alt text](image-224.png)
+- ![alt text](image-225.png)
+- In LORA, small trainable matrices are added to certain layers of the model. These matrices capture the new information needed for the specific task while keeping the rest of the model frozen.
+- Because you are only training the edit matrices, the rest of the model remains unchanged.
+- This significantly reduces the computational resources needed for fine tuning.
+- LORA is particularly useful when you have smaller dataset, but still need to fine tune a model for
+a specific task. It allows the model to learn new patterns without overfitting or impacting its general performance.
+- Laura has different version, which is the quantized LORA(QLORA)
+- QLORA represents a more memory efficient iteration of traditional LORA.
+- QLORA takes LORA a step further by also quantizing the weights of the LORA adapters, which is a smaller metrics to the lower precision.
+- These further operation reduces the memory footprint and the storage requirements.
+- ![alt text](image-226.png)
+- ![alt text](image-227.png)
+
+### Application and Use Cases of Fine Tuning
+- ![alt text](image-228.png)
+- ![alt text](image-229.png)
+- ![alt text](image-230.png)
+
+### Challenges and Key Considerations of Fine Tuning
+- ![alt text](image-231.png)
+- ![alt text](image-232.png)
+- ![alt text](image-233.png)
+- ![alt text](image-234.png)
+- ![alt text](image-235.png)
+
+### Design EShop Customer Support using Fine Tuning
+- ![alt text](image-236.png)
+- ![alt text](image-237.png)
+- ![alt text](image-239.png)
+- ![alt text](image-240.png)
+- ![alt text](image-241.png)
+- ![alt text](image-242.png)
+- ![alt text](image-243.png)
+- ![alt text](image-244.png)
+- In JSON Lines format, each json object is placed on a single separate line.
+- ![alt text](image-245.png)
+- ![alt text](image-246.png)
+- ![alt text](image-247.png)
+- ![alt text](image-248.png)
+- ![alt text](image-249.png)
+- ![alt text](image-250.png)
+- ![alt text](image-251.png)
+- ![alt text](image-252.png)
+- ![alt text](image-253.png)
+
+## Choosing the Right Optimization
+- ![alt text](image-254.png)
+- ![alt text](image-255.png)
+- ![alt text](image-256.png)
+- ![alt text](image-257.png)
+- ![alt text](image-258.png)
+- ![alt text](image-259.png)
+- ![alt text](image-260.png)
+
+### Training own model for LLM Optimization
+- ![alt text](image-261.png)
+- ![alt text](image-262.png)
+- ![alt text](image-263.png)
+- ![alt text](image-264.png)
+
+## Vector Databases and Semantic Search with RAG
+- ![alt text](image-265.png)
+- ![alt text](image-268.png)
+- Vector embeddings allow us to find and retrieve similar objects by searching for objects that are close to each other in the vector space. This concept is called vector search, similarity search, or semantic search.
+- As the concept of semantic search is based on the contextual meaning, it allows for a more human-like search experience by retrieving relevant search results that match the user's intent. This advantage makes vector search important for applications, that are e.g., sensitive to typos or synonyms.
+- The numerical representation of a data object allows us to apply mathematical operations to them. For example you can calculate the distance between two vector representations to determine their similarity. You can use several similarity measures to calculate the distance between two vectors.
+- Squared Euclidean or L2-squared distance calculates the straight-line distance between two vectors. Its range is [0, ∞], where 0 represents identical vectors, and larger values represent increasingly dissimilar vectors.
+- Manhattan or L1 distance calculates the sum of the lengths of the projections of the line segment between the points onto the coordinate axes. Its range is [0, ∞], where 0 represents identical vectors, and larger values represent increasingly dissimilar vectors.
+- Cosine similarity calculates the cosine of the angle between two vectors. Weaviate uses the cosine distance for the complement of cosine similarity. Its range is [0, 2], where 0 represents identical vectors, and 2 represents vectors that point in opposite directions.
+- Dot product calculates the product of the magnitudes of two vectors and the cosine of the angle between them. Its range is [-∞, ∞], where 0 represents orthogonal vectors, and larger values represent increasingly similar vectors. Weaviate uses the negative dot product to keep the intuition that larger values represent increasingly dissimilar vectors.
+- ![alt text](image-266.png)
+- Vector indexing is the process of organizing vector embeddings so that data can be retrieved efficiently.
+- When you want to find the closest items to a given query vector, the brute force approach would be to use the k-Nearest Neighbors (kNN) algorithm. But calculating the similarity between your query vector and every entry in the vector database requires a lot of computational resources, especially if you have large datasets with millions or even billions of data points. This is because the required calculations increase linearly (O(n)) with the dimensionality and the number of data points.
+- With the rise of LLMs, many modern Generative AI applications use vector databases as an external knowledge source. You might have already come across the term that they provide LLMs with long-term memory. LLMs are stateless, which means that they immediately forget what you have just discussed if you don’t store this information in, e.g., a vector database and thus provide them with a state. This enables LLMs to hold an actual conversation. Also, you can store additional information in them as part of a retrieval-augmented generation (RAG) pipeline to reduce hallucinations.
+- ![alt text](image-267.png)
+- ![alt text](image-269.png)
+- ![alt text](image-270.png)
+- ![alt text](image-271.png)
+- ![alt text](image-272.png)
+
+### What are Vectors and Vector Embeddings
+- ![alt text](image-273.png)
+- ![alt text](image-274.png)
+- ![alt text](image-275.png)
+- Now change the word from artificial intelligence to artificial knowledge and observe the generated tokens:
+- ![alt text](image-276.png)
+- ![alt text](image-278.png)
+
+### Explore Vector Embedding Models: OpenAI and Ollama
+- These models generate numerical representation of texts which are essential for tasks like semantic
+search and recommendation systems.
+- ![alt text](image-279.png)
+- ![alt text](image-280.png)
+- An embedding is a vector (list) of floating point numbers. The distance between two vectors measures their relatedness. Small distances suggest high relatedness and large distances suggest low relatedness.
+- To get an embedding, send your text string to the embeddings API endpoint along with the embedding model name (e.g., text-embedding-3-small):
+```python
+from openai import OpenAI
+client = OpenAI()
+
+response = client.embeddings.create(
+    input="Your text string goes here",
+    model="text-embedding-3-small"
+)
+
+print(response.data[0].embedding)
+
+```
+- The response contains the embedding vector (list of floating point numbers) along with some additional metadata. You can extract the embedding vector, save it in a vector database, and use for many different use cases.
+```json
+{
+  "object": "list",
+  "data": [
+    {
+      "object": "embedding",
+      "index": 0,
+      "embedding": [
+        -0.006929283495992422,
+        -0.005336422007530928,
+        -4.547132266452536e-05,
+        -0.024047505110502243
+      ],
+    }
+  ],
+  "model": "text-embedding-3-small",
+  "usage": {
+    "prompt_tokens": 5,
+    "total_tokens": 5
+  }
+}
+
+```
+- By default, the length of the embedding vector is 1536 for text-embedding-3-small or 3072 for text-embedding-3-large. To reduce the embedding's dimensions without losing its concept-representing properties, pass in the dimensions parameter. 
+- ![alt text](image-281.png)
+```python
+ollama.embed(
+  model='mxbai-embed-large',
+  input='Llamas are members of the camelid family',
+)
+```
+- Ollama also integrates with popular tooling to support embeddings workflows such as LangChain and LlamaIndex.
+- Look at the code for RAG pipeline here: [text](https://ollama.com/blog/embedding-models)
+- ![alt text](image-282.png)
+- ![alt text](image-283.png)
+- Observe how it created some many dimensions to capture the meaning of the sentence.
+- Similar sentences will have their embeddings close to each other in the vector space.
+
+### Semantic Meaning and Similarity Search
+- ![alt text](image-284.png)
+- ![alt text](image-285.png)
+- ![alt text](image-286.png)
+- ![alt text](image-287.png)
+- ![alt text](image-288.png)
+- ![alt text](image-289.png)
+
+
+### How Vector Databases Work?
+- ![alt text](image-291.png)
+- Data is transformed into vector embeddings using an embedding model, and we will continue with the
+vector indexing once vectors are created.
+- Embeddings are organized into structures optimized for efficient retrieval and fast similarity search.
+- And after that we will perform vector search.
+- When a query is submitted, it is transformed into a vector using the same embedding model and compare
+these query vector with the stored embeddings or vector database.
+- And after performing similarity search, we send context query prompt to the LLM in order to generate
+context aware Responses.
+- So you can think of vector database as a matchmaking services.
+
+#### Vector Creation
+- ![alt text](image-292.png)
+#### Vector Indexing
+- ![alt text](image-293.png)
+#### Vector Search
+- ![alt text](image-294.png)
+
+### Vector Search Algorithms
+- ![alt text](image-295.png)
+- ![alt text](image-296.png)
+- ![alt text](image-297.png)
+- ![alt text](image-299.png)
+- ![alt text](image-300.png)
+- ![alt text](image-301.png)
+
+### Use Cases and Applications of Vector Databases
+- ![alt text](image-302.png)
+- ![alt text](image-303.png)
+
+### Explore Vector Databases
+- ![alt text](image-304.png)
+- Pinecone is a fully managed serverless vector database optimized for fast and scalable similarity searches.
+- It supports various AI and machine learning applications with its robust infrastructure, and it abstracts away infrastructure management and allowing developers to focus on building applications.
+- ![alt text](image-305.png)
+- Key features of the pinecone vector database is real time indexing and querying support.
+- Also automatic scaling for large datasets and optimized for approximate nearest neighbor(ANN) search
+- Use cases could be including semantic search, which is powering advanced search engines and recommendation systems, which is tailored content or product suggestions.
+- ![alt text](image-306.png)
+- Another vector DB is chroma
+- Chroma is an open source vector database built for fast prototyping and development, and it is ideal
+for developers who need a lightweight and easily deployable solution.
+- ![alt text](image-307.png)
+- ![alt text](image-308.png)
+- ![alt text](image-309.png)
+- Weaviate is a schema based vector database designed for managing knowledge graphs and contextual search.
+- It provides a graphical interface, making it developer friendly.
+- ![alt text](image-310.png)
+- Quadrant is a high performance open source vector database designed for real time application, and
+it provides handling large data sets efficiently.
+- The key features are payload filters, which combine vector search with structured filters, and it
+also provides RESTful and gRPC APIs for flexible integration.
+- ![alt text](image-311.png)
+- Milvus is a distributed vector database designed for scalability and high availability.
+- The key features of the Milvus database are supporting billion scale data management and GPU accelerated querying for faster performance.
+- We can create collection very easily, insert data, search and delete data in using the vector database
+from the Milvus.
+- Main use cases are multimedia search for retrieving similar images or videos from massive data
+sets and also it support IoT applications to analyze sensor data for real time decision making.
+- ![alt text](image-312.png)
+- ![alt text](image-313.png)
+-  If you are already invested in PostgreSQL, PG vector allows you to add vector capabilities without switching databases.
+-  ![alt text](image-314.png)
+-  Regis is a well-known in-memory database, and Redis AI extends its capabilities to include vector search and AI model serving.
+-  It is optimized for low latency, high throughput applications, the key features of real time processing and tight integration with AI frameworks like TensorFlow and PyTorch
+-  Use cases are real time recommendation and AI powered dashboard to provide semantic search for enterprise analytics.
+
+### Design EShop Support Architecture with LLMs and Vector Databases
+- ![alt text](image-315.png)
+- ![alt text](image-316.png)
+- With the rise of the AI powered technologies, we are entering a new era where large language
+models and vector databases can also function as a cloud native backend services.
+- These tools provide intelligence, semantic understanding and retrieval capabilities directly embedded
+into our applications.
+- ![alt text](image-317.png)
+- ![alt text](image-318.png)
+- ![alt text](image-319.png)
+- Tools like semantic Kernel or Link chain bridge the gap between microservices and AI tools, enabling
+seamless interactions.
+- Integrating Llms and vector databases as a backing services, we can create smarter applications.
+- Applications can understand context and provide more accurate and human like responses.
+- ![alt text](image-320.png)
+- ![alt text](image-321.png)
+- ![alt text](image-323.png)
+- we need a Glue framework, which is the AI integration component for integrating between
+customer support microservices and our AI backing services, includingLLM and vector databases.
+- we will integrate with using Semantic Kernel framework for interaction with LLMs.
+- Semantic kernel is a glue framework for interacting with LLMS connecting to Ollama.
+- We will leverage Ollama for LLM capabilities and embeddings generation and use chroma vector database for semantic search and similarity operations
+- All services like LLMs databases and microservices are containerized as a Docker container and run it in the unified Docker network, ensuring robust communication and scalability.
+- ![alt text](image-324.png)
+- ![alt text](image-325.png)
+- When support agent send query with Q&A chat window, these requests handled by the customer support microservices and it will integrate with the Ollama LLM embeddings model using the semantic kernel framework in order to create embeddings vector.
+- By this way, we can go to the next step, which is the semantic search operation.
+- The chroma vector database compares the query embeddings with the stored document embeddings, and it
+retrieves the most relevant document chunks, and these chunks form the context needed to answer the query.
+- And after that we will create the prompt.
+- The customer support microservices combines the retrieved context with the agent's original query into
+a structured, context aware prompt.
+- So it creates a context aware prompt.
+- And after that we will go to the response generation.
+- The prompt is sent to the llama 3.2 module in llama, which generates a detailed and contextually accurate responses.
+- This response is returned to the front end, enabling the support agent to reply to customer ticket
+effectively.
+- ![alt text](image-326.png)
+- ![alt text](image-327.png)
+- Alternative to Semantic Kernel is Langchain or LlamaIndex for python developers.
+- ![alt text](image-328.png)
+
+
+### Azure Cloud AI Services
+- ![alt text](image-329.png)
+- Azure OpenAI brings large language models to the enterprise with enterprise grade security scalability and performance.
+- ![alt text](image-330.png)
+- ![alt text](image-332.png)
+- 
